@@ -24,7 +24,7 @@ const router = new Router({
       name: "about",
       component: About,
       meta: {
-        eopPage: "About"
+        eopPage: "about"
       }
     },
     {
@@ -32,7 +32,7 @@ const router = new Router({
       name: "user",
       component: User,
       meta: {
-        eopPage: "User"
+        eopPage: "user"
       }
     }
   ]
