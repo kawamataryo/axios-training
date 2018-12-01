@@ -3,8 +3,19 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
+const state = {
+  syscode: "123456"
+};
+
+const getters = {
+  syscode: state => {
+    return state.syscode;
+  }
+};
+
 export default new Vuex.Store({
-  state: {},
+  state: state,
   mutations: {},
-  actions: {}
+  actions: {},
+  getters: getters
 });

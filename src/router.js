@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
+import store from "./store";
 import Home from "./views/Home";
 import About from "./views/About";
 import User from "./views/User";
@@ -51,7 +52,8 @@ async function setEopEvents() {
 }
 
 function pushEopPage(to, from, next) {
-  console.log(`${to.meta.eopPage}ページ`);
+  console.log(`page: ${to.meta.eopPage}`);
+  console.log(`syscode: ${store.getters.syscode}`);
   next();
 }
 
