@@ -1,7 +1,7 @@
 # eop-demo
 
-eopの送信用のdemo.
-vue-routerでページ情報、クリック情報を送信.
+eopの送信用のデモ.  
+vue-routerでページ情報を送信、クリック情報取得用のeventの設定.
 
 ## Project setup
 ```
