@@ -2,7 +2,6 @@
   <div class="User">
     <h1>This is User</h1>
     <button
-      href=""
       class="btn eop"
       eop-action="click"
       eop-contents="user-btn-click"
