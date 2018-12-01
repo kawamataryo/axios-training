@@ -1,6 +1,8 @@
 import Vue from "vue";
 import Router from "vue-router";
 import store from "./store";
+import axios from "axios";
+
 import Home from "./views/Home";
 import About from "./views/About";
 import User from "./views/User";
@@ -38,23 +40,38 @@ const router = new Router({
   ]
 });
 
-async function setEopEvents() {
+function pushEopPage(to, from, next) {
+  axios({
+    method: "POST",
+    url: store.getters.eopServer,
+    data: {
+      syscode: store.getters.syscode,
+      eopPage: to.meta.eopPage
+    }
+  });
+
+  next();
+}
+
+async function setEopEvents(to) {
   await router.app.$nextTick();
 
   let eopElements = document.getElementsByClassName("eop");
 
   for (let element of eopElements) {
     element.addEventListener("click", e => {
-      console.log(e.target.getAttribute("eop-contents"));
-      console.log(e.target.getAttribute("eop-action"));
+      axios({
+        method: "POST",
+        url: store.getters.eopServer,
+        data: {
+          syscode: store.getters.syscode,
+          eopPage: to.meta.eopPage,
+          eopAction: e.target.getAttribute("eop-action"),
+          eopContents: e.target.getAttribute("eop-contents")
+        }
+      });
     });
   }
-}
-
-function pushEopPage(to, from, next) {
-  console.log(`page: ${to.meta.eopPage}`);
-  console.log(`syscode: ${store.getters.syscode}`);
-  next();
 }
 
 router.beforeEach(pushEopPage);
