@@ -11,7 +11,7 @@
   </div>
 </template>
 
-<style>
+<style lang="scss">
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -43,5 +43,9 @@ h1 {
   font-size: 1.5rem;
   padding: 5px 30px;
   border: 1px solid #000;
+  margin-left: 20px;
+  &:first-child {
+    margin-left: 0;
+  }
 }
 </style>

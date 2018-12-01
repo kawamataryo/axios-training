@@ -4,7 +4,7 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 const state = {
-  eopServer: "https://jsonplaceholder.typicode.com/posts",
+  eopServer: "https://reqres.in/api/users",
   syscode: "123456"
 };
 
