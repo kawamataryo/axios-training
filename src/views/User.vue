@@ -1,13 +1,21 @@
 <template>
-  <div class="about"><h1>This is an user page</h1></div>
+  <div class="User">
+    <h1>This is User</h1>
+    <button
+      href=""
+      class="btn eop"
+      eop-action="click"
+      eop-contents="user-btn-click"
+    >
+      Click!!
+    </button>
+  </div>
 </template>
 
 <script>
-  export default {
-    name: "User"
-  }
+export default {
+  name: "User"
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

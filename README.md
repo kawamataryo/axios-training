@@ -1,5 +1,8 @@
 # eop-demo
 
+eopの送信用のdemo.
+vue-routerでページ情報、クリック情報を送信.
+
 ## Project setup
 ```
 yarn install

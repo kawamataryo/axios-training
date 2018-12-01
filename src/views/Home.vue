@@ -1,9 +1,19 @@
 <template>
-  <div class="about"><h1>This is an Home page</h1></div>
+  <div class="home">
+    <h1>This is Home</h1>
+    <button
+      href=""
+      class="btn eop"
+      eop-action="click"
+      eop-contents="home-btn-click"
+    >
+      Click!!
+    </button>
+  </div>
 </template>
 
 <script>
 export default {
-  name: "home",
+  name: "home"
 };
 </script>
