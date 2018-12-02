@@ -5,15 +5,23 @@ Vue.use(Vuex);
 
 const state = {
   eopServer: "https://reqres.in/api/users",
+  service: "conference",
+  pageType: "sp",
   syscode: "123456"
 };
 
 const getters = {
+  eopServer: state => {
+    return state.eopServer;
+  },
+  service: state => {
+    return state.service;
+  },
   syscode: state => {
     return state.syscode;
   },
-  eopServer: state => {
-    return state.eopServer;
+  pageType: state => {
+    return state.pageType;
   }
 };
 

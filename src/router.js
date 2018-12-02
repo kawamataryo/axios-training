@@ -40,12 +40,22 @@ const router = new Router({
   ]
 });
 
-function pushEopPage(to, from, next) {
-  let params = {
-    syscode: store.getters.syscode,
-    eopPage: to.meta.eopPage
-  };
-  axios({
+function createEopParams(page, contents, action) {
+  return [
+    {
+      source: "web",
+      service: store.getters.service,
+      page: page,
+      pagetype: store.state.pageType,
+      contents: contents,
+      user: store.getters.syscode,
+      action: action
+    }
+  ];
+}
+
+async function sendEopData(params) {
+  await axios({
     method: "POST",
     url: store.getters.eopServer,
     data: params
@@ -56,6 +66,11 @@ function pushEopPage(to, from, next) {
     .catch(function(error) {
       console.log(error);
     });
+}
+
+function pushEopPage(to, from, next) {
+  let params = createEopParams(to.meta.eopPage, "", "display");
+  sendEopData(params);
 
   next();
 }
@@ -67,23 +82,12 @@ async function setEopEvents(to) {
 
   for (let element of eopElements) {
     element.addEventListener("click", e => {
-      let params = {
-        syscode: store.getters.syscode,
-        eopPage: to.meta.eopPage,
-        eopAction: e.target.getAttribute("eop-action"),
-        eopContents: e.target.getAttribute("eop-contents")
-      };
-      axios({
-        method: "POST",
-        url: store.getters.eopServer,
-        data: params
-      })
-        .then(function(response) {
-          console.log(response);
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+      let params = createEopParams(
+        to.meta.eopPage,
+        e.target.getAttribute("eop-contents"),
+        e.target.getAttribute("eop-action")
+      );
+      sendEopData(params);
     });
   }
 }
