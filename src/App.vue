@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <eop-header></eop-header>
     <div id="nav">
       <router-link to="/">Home</router-link>
       |
@@ -10,6 +11,15 @@
     <router-view />
   </div>
 </template>
+<script>
+  import Header from "./components/Header";
+
+  export default {
+    components: {
+      eopHeader: Header
+    }
+  }
+</script>
 
 <style lang="scss">
 #app {

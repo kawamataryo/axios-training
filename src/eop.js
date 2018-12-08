@@ -1,12 +1,12 @@
 import store from "./store";
 import axios from "axios";
 
-function createEopParams(page, contents, action) {
+function createEopParams(contents, action) {
   return [
     {
       source: "web",
-      service: store.getters.service,
-      page: page,
+      service: store.state.service,
+      page: store.state.eopPage,
       pagetype: store.state.pageType,
       contents: contents,
       user: store.getters.syscode,
@@ -18,7 +18,7 @@ function createEopParams(page, contents, action) {
 async function sendEopData(params) {
   await axios({
     method: "POST",
-    url: store.getters.eopServer,
+    url: store.state.eopServer,
     data: params
   })
     .then(function(response) {
@@ -27,13 +27,6 @@ async function sendEopData(params) {
     .catch(function(error) {
       console.log(error);
     });
-}
-
-export function pushEopPage(to, from, next) {
-  let params = createEopParams(to.meta.eopPage, "", "display");
-  sendEopData(params);
-
-  next();
 }
 
 export function setEopEvents(to) {
@@ -50,3 +43,20 @@ export function setEopEvents(to) {
     });
   }
 }
+
+export const eopFunctions = {
+  methods: {
+    sendEopPage: function() {
+      sendEopData(createEopParams("", "displayPage"));
+    },
+    sendEopClick: function(contents) {
+      if (!contents) {
+        return;
+      }
+      sendEopData(createEopParams(contents, "click"));
+    }
+  }
+};
+
+//TODO: クッキーへの値挿入
+//TODO: 微妙に送信携帯が違う問題を対処（json={}）となっているもの

@@ -1,7 +1,6 @@
-# eop-demo
+# demo
 
-eopの送信用のデモ.  
-vue-routerでページ情報を送信、クリック情報取得用のeventの設定.
+axiosのデモ.  
 
 ## Project setup
 ```
