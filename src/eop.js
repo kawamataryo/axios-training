@@ -15,7 +15,7 @@ function createEopParams(contents, action) {
   ];
 }
 
-async function sendEopData(params) {
+async function sendEop(params) {
   await axios({
     method: "POST",
     url: store.state.eopServer,
@@ -29,34 +29,50 @@ async function sendEopData(params) {
     });
 }
 
-export function setEopEvents(to) {
-  let eopElements = document.getElementsByClassName("eop");
+function isEopClick(element) {
+  return (
+    element.parentElement.getAttribute("eop-action") === "click" ||
+    element.getAttribute("eop-action") === "click"
+  );
+}
 
-  for (let element of eopElements) {
+function isSpecifiedEvents(element) {
+  return element.getAttribute("setEop") === "true";
+}
+
+function findTargetElements() {
+  return [...document.getElementsByTagName("a")].filter(
+    e => !isSpecifiedEvents(e) && isEopClick(e)
+  );
+}
+
+export function setEopEvents() {
+  for (let element of findTargetElements()) {
     element.addEventListener("click", e => {
-      let params = createEopParams(
-        to.meta.eopPage,
-        e.target.getAttribute("eop-contents"),
-        e.target.getAttribute("eop-action")
-      );
-      sendEopData(params);
+      const eopContents =
+        e.target.getAttribute("eop-contents") ||
+        e.target.parentElement.getAttribute("eop-contents");
+      sendEop(createEopParams(eopContents, "click"));
     });
+    element.setAttribute("setEop", "true");
   }
 }
 
 export const eopFunctions = {
   methods: {
-    sendEopPage: function() {
-      sendEopData(createEopParams("", "displayPage"));
+    sendEopPage: function(addParams) {
+      const params = Object.assign(
+        createEopParams("", "displayPage"),
+        addParams
+      );
+      sendEop(params);
     },
     sendEopClick: function(contents) {
       if (!contents) {
         return;
       }
-      sendEopData(createEopParams(contents, "click"));
+      sendEop(createEopParams(contents, "click"));
     }
   }
 };
 
-//TODO: クッキーへの値挿入
-//TODO: 微妙に送信携帯が違う問題を対処（json={}）となっているもの
