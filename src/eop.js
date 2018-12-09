@@ -2,17 +2,15 @@ import store from "./store";
 import axios from "axios";
 
 function createEopParams(contents, action) {
-  return [
-    {
-      source: "web",
-      service: store.state.service,
-      page: store.state.eopPage,
-      pagetype: store.state.pageType,
-      contents: contents,
-      user: store.getters.syscode,
-      action: action
-    }
-  ];
+  return {
+    source: "web",
+    service: store.state.service,
+    page: store.state.eopPage,
+    pagetype: store.state.pageType,
+    contents: contents,
+    user: store.getters.syscode,
+    action: action
+  };
 }
 
 async function sendEop(params) {
@@ -61,10 +59,8 @@ export function setEopEvents() {
 export const eopFunctions = {
   methods: {
     sendEopPage: function(addParams) {
-      const params = Object.assign(
-        createEopParams("", "displayPage"),
-        addParams
-      );
+      let params = createEopParams("", "displayPage")
+      Object.assign(params, addParams);
       sendEop(params);
     },
     sendEopClick: function(contents) {
@@ -75,4 +71,3 @@ export const eopFunctions = {
     }
   }
 };
-

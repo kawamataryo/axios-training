@@ -14,7 +14,12 @@ export default {
   components: {
     eopButton: Button
   },
-  name: "User"
+  name: "User",
+  created: function () {
+    this.$store.commit("setEopPage", "about-page")
+    this.sendEopPage()
+  }
+
 };
 </script>
 

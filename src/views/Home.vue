@@ -8,12 +8,16 @@
 </template>
 
 <script>
-  import Button from "../components/Button";
+import Button from "../components/Button";
 
-  export default {
-    components: {
-      eopButton: Button
-    },
-  name: "home"
+export default {
+  components: {
+    eopButton: Button
+  },
+  name: "home",
+  created: function() {
+    this.$store.commit("setEopPage", "about-page");
+    this.sendEopPage({ eopHoge: "hoge", eopFuga: "fuga" });
+  }
 };
 </script>

@@ -6,7 +6,6 @@ import About from "./views/About";
 import User from "./views/User";
 
 import { setEopEvents } from "./eop";
-import { pushEopPage } from "./eop";
 
 Vue.use(Router);
 
@@ -41,10 +40,9 @@ const router = new Router({
   ]
 });
 
-router.beforeEach(pushEopPage);
-router.afterEach(async to => {
+router.afterEach(async () => {
   await router.app.$nextTick();
-  setEopEvents(to);
+  setEopEvents();
 });
 
 export default router;

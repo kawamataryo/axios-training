@@ -1,5 +1,4 @@
 <template>
-
   <div class="about">
     <h1>This is About</h1>
     <eop-button text="hoge" eopContents="hoge"></eop-button>
@@ -9,12 +8,16 @@
 </template>
 
 <script>
-  import Button from "../components/Button";
+import Button from "../components/Button";
 
-  export default {
-    components: {
-      eopButton: Button,
-    },
-  name: "about"
+export default {
+  components: {
+    eopButton: Button
+  },
+  name: "about",
+  created: function () {
+    this.$store.commit("setEopPage", "about-page")
+    this.sendEopPage()
+  }
 };
 </script>

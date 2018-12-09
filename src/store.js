@@ -11,8 +11,14 @@ const state = {
   eopPage: ""
 };
 
+const mutations = {
+  setEopPage(state, eopPage) {
+    state.eopPage = eopPage;
+  }
+};
+
 export default new Vuex.Store({
   state: state,
-  mutations: {},
+  mutations: mutations,
   actions: {}
 });
